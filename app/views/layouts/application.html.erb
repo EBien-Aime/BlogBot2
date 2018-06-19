@@ -5,9 +5,8 @@
     <p class="notice"><%= notice %></p>
        <p class="alert"><%= alert %></p>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
@@ -26,19 +25,34 @@
 	        </div>
 	        <div id="navbarMenuHeroA" class="navbar-menu">
 	          <div class="navbar-end">
-	            <%= link_to "Create New Post", new_post_path, class:"navbar-item" %>
-	          </div>
+              <% if user_signed_in? %>
+              <%= link_to "Create New Post", new_post_path, class:"navbar-item" %>
+                <%= link_to "Sign out", destroy_user_session_path, :method => :delete, class:"navbar-item" %>
+                <div id="currentUserSignedIn">
+                  Signed in as: <%= current_user.email %>
+                </div>
+                <% end %>
+            </div>
 	        </div>
 	      </div>
 	    </nav>
 	  </div>
 
+
 	  <!-- Hero content: will be in the middle -->
 	  <div class="hero-body">
 	    <div class="container has-text-centered">
-	      <h1 class="title">
-	        <%= yield :page_title %>
-	      </h1>
+        <div id="slideshow">
+   <div>
+     <img src="/assets/robot_PNG79.png">
+   </div>
+   <div>
+     <img src="/assets/omom.png">
+   </div>
+   <div>
+     <img src="/assets/Robot-PNG-HD.png">
+   </div>
+</div>
 	    </div>
 	  </div>
 	</section>

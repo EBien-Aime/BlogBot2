@@ -1,4 +1,5 @@
 <% content_for :page_title, @post.title %>
+<p>Posted by <%=User.find(@post.user_id).email%> </p>
 
 <section class="section">
 	<div class="container">
@@ -12,7 +13,9 @@
 		  <!-- Right side -->
 		  <div class="level-right">
 		  	<p class="level-item">
+					<% if current_user %>
 		    	<%= link_to "Edit", edit_post_path(@post), class:"button" %>
+					<% end %>
 		  	</p>
 		  	<p class="level-item">
 				<%= link_to "Delete", post_path(@post), method: :delete, data: { confirm: "Are you sure?" }, class:"button is-danger" %>

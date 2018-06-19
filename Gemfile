@@ -32,6 +32,8 @@ gem 'simple_form'
 gem 'bootstrap', '~> 4.1.1'
 gem 'devise'
 gem "paperclip", "~> 6.0.0"
+gem 'jquery-rails'
+gem 'thor'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
