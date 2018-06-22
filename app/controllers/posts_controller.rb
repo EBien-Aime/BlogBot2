@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+	before_action :correct_user, only: [:edit, :update, :destroy]
 	def new
 	  @post = Post.new
 	end
@@ -8,13 +9,15 @@ class PostsController < ApplicationController
 	end
 
 	def create
-	@post = Post.new(params[:post].permit(:title, :text))
-
-	  if @post.save
-	    redirect_to @post
-	  else
-	    render 'new'
-	  end
+		@post = Post.new(post_params)
+		@post.user_id = current_user.id
+		if @post.save!
+			flash[:notice] = "Post Successfully Created"
+			redirect_to "/"
+		else
+			render "/posts/new"
+			flash[:notice] = "Post failed"
+		end
 	end
 
 	def show
@@ -28,7 +31,7 @@ class PostsController < ApplicationController
 	def update
 	  @post = Post.find(params[:id])
 
-	  if @post.update(params[:post].permit(:title, :text))
+	  if @post.update(params[:post].permit(:title, :content))
 	    redirect_to @post
 	  else
 	    render 'edit'
@@ -44,9 +47,9 @@ class PostsController < ApplicationController
 
 
 
+
 	private
 	 def post_params
-	  params.require(:post).permit(:title, :text)
+	  params.require(:post).permit(:title, :content)
 	 end
-
 	end
